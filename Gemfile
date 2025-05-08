@@ -64,5 +64,5 @@ gem "turbo-rails", "~> 2.0"
 
 gem "tailwind_merge", "~> 1.2"
 
-gem "shrine", "~> 3.0"
 gem "pry", "~> 0.15.2"
+

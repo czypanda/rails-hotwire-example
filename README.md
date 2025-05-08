@@ -1,24 +1,18 @@
-# README
+# Rails hotwire example app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Files manager example app using hotwire turbo, hotwire stimulus and tailwind css
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+make sure you have installed ruby and nodejs:
 
-* System dependencies
+* ruby 3.4.2
+* nodejs 23.11.0
 
-* Configuration
+make sure you have postgresql service running locally on port 5432
 
-* Database creation
+then run
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```shell
+bin/setup
+```
