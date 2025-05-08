@@ -1,0 +1,33 @@
+<%= table_row data: { 
+    controller: "turbo-visit drag-drop", 
+    drag_drop_type_value: "folder", 
+    drag_drop_id_value: dashboard_folder.id,
+    drag_drop_draggable_value: false,
+    action: "click->turbo-visit#visit",
+    url: dashboard_path_for(dashboard_folder)
+} do %>
+    <%= table_column do %>
+        <%= render 'icons/folder_output' %>
+    <% end %>
+
+    <%= table_column do %>
+        -
+    <% end %>
+
+    <%= table_column class: "text-center" do %>
+        -
+    <% end %>
+
+    <%= table_column class: "text-center" do %>
+        -
+    <% end %>
+
+    <%= table_column class: "text-center" do %>
+        -
+    <% end %>
+
+    <%= table_column class: "text-center" do %>
+        -
+    <% end %>
+<% end %>
+

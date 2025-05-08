@@ -1,0 +1,17 @@
+<div>
+  <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 auto-rows-fr" data-dashboard-target="gridView">
+    <% if current_folder.parent.present? %>
+      <%= render partial:'dashboard/folders/parent_card', locals: { dashboard_folder: current_folder.parent } %>
+    <% end %>
+
+    <%= render partial:'dashboard/folders/card', collection: dashboard_folders, as: :dashboard_folder, locals: { available_folders: available_folders } %>
+
+    <%= render partial:'dashboard/file_entries/card', collection: dashboard_files, as: :dashboard_file, locals: { available_folders: available_folders } %>
+
+    <% show_empty_data_placeholder = dashboard_folders.empty? && dashboard_files.empty? && is_root_folder?(current_folder) %>
+  </div>
+
+  <% if show_empty_data_placeholder %>
+    <%= render 'dashboard/empty_data_placeholder' %>
+  <% end %>
+</div>

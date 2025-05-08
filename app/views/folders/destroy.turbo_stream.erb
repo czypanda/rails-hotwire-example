@@ -1,0 +1,7 @@
+<%= turbo_stream.update "dashboard_content", partial: "dashboard/dashboard_content", locals: { available_folders: available_folders, dashboard_folders: dashboard_folders, dashboard_files: dashboard_files, current_folder: current_folder, current_view: current_view } %>
+
+<%= turbo_stream.update 'new_folder_form', partial: 'folders/new_form', locals: { folder: Folder.new(parent: current_folder), available_folders: available_folders } %>
+
+<turbo-stream action="close-modal" target="delete_folder_modal"></turbo-stream>
+
+<%= render_turbo_stream_flash_messages %>

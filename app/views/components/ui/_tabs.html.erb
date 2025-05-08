@@ -1,0 +1,20 @@
+<div class="group" data-controller="ui--tabs <%= options[:data][:controller] %>">
+  <div class="flex flex-col md:flex-row w-full gap-2">
+    <%= content_for :before_tab_list %>
+
+    <div
+        role="tablist"
+        aria-orientation="horizontal"
+        class="h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground grid w-auto grid-cols-2"
+        tabindex="0"
+        data-orientation="horizontal"
+        style="outline: none"
+    >
+      <%= content_for :tab_list %>
+    </div>
+
+    <%= content_for :after_tab_list %>
+  </div>
+
+  <%= content_for :tab_panels %>
+</div>

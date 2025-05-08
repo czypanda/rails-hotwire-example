@@ -1,0 +1,17 @@
+<nav class="flex space-x-2 text-lg text-gray-500">
+  <%= turbo_frame_tag "current_path" do %>
+    <%= link_to "Root", root_path, class: "hover:text-gray-700", data: { turbo_stream: true  } %>
+    
+    <% current_folder.ancestors.reverse.each do |ancestor| %>
+      <% if ancestor.name != 'Root' %>
+        <span class="mx-2">/</span>
+        <%= link_to ancestor.name, dashboard_path_for(ancestor), class: "hover:text-gray-700", data: { turbo_frame: "_top", turbo_stream: true } %>
+      <% end %>
+    <% end %>
+    
+    <% if current_folder.name != 'Root' %>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900"><%= current_folder.name %></span>
+    <% end %>
+  <% end %>
+</nav>

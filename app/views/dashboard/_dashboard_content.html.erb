@@ -1,0 +1,10 @@
+
+<main class="py-4">
+    <%= tab_panel active: current_view == 'grid' do %>
+        <%= render 'dashboard/grid', available_folders: available_folders, dashboard_folders: dashboard_folders, dashboard_files: dashboard_files, current_folder: current_folder %>
+    <% end %>
+
+    <%= tab_panel active: current_view == 'list' do %>
+        <%= render 'dashboard/table', available_folders: available_folders, dashboard_folders: dashboard_folders, dashboard_files: dashboard_files, current_folder: current_folder %>
+    <% end %>
+</main>

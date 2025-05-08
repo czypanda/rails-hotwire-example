@@ -1,0 +1,50 @@
+<div class="min-h-screen bg-background">
+  <div class="container mx-auto p-4 space-y-4">
+    <h1 class="text-2xl font-bold">Files storage</h1>
+
+    <%= render_tabs data: { controller: "dashboard-view" } do %>
+      <%= before_tab_list do %>
+        <div class="flex flex-col md:flex-row gap-2 mr-2 w-full">
+          <div class="flex items-center flex-1">
+            <%= render "dashboard/path", current_folder: current_folder %>
+          </div>
+
+          <div class="flex row gap-4">
+            <%= render_dialog id: "new_file_modal" do %>
+            <%= dialog_trigger do %>
+              <%= render_button 'Upload', variant: :default %>
+            <% end %>
+
+            <%= dialog_content do %>
+              <%= render 'file_entries/new_form', file_entry: FileEntry.new(folder: current_folder), available_folders: available_folders %>
+            <% end %>
+          <% end %>
+
+          <%= render_dialog id: "new_folder_modal" do %>
+            <%= dialog_trigger do %>
+              <%= render_button 'New Folder', variant: :secondary %>
+            <% end %>
+
+            <%= dialog_content do %>
+              <%= render 'folders/new_form', folder: Folder.new(parent: current_folder), available_folders: available_folders %>
+            <% end %>
+          <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <%= tab_list do %>
+        <%= tab "Grid", active: current_view == 'grid', data: { action: "click->dashboard-view#change", name: "grid" } %>
+        <%= tab "List", active: current_view == 'list', data: { action: "click->dashboard-view#change", name: "list" } %>
+      <% end %>
+
+      <%= tab_panels do %>
+        <%= turbo_frame_tag "dashboard_content" do %>
+          <%= render 'dashboard/dashboard_content', available_folders: available_folders, dashboard_folders: dashboard_folders, dashboard_files: dashboard_files, current_folder: current_folder, current_view: current_view %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= render 'components/ui/toast' %>
+  </div>
+</div>

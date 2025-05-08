@@ -1,0 +1,13 @@
+<%= form_with(model: file_entry, method: :delete, href: file_entry_path(file_entry), local: true, html: { multipart: true, class: 'space-y-4 text-start' }) do |f| %>
+  <h2 class="text-lg font-semibold">This action will permanently delete the file. Are you sure you want to continue?</h2>
+
+  <div class="flex justify-end gap-2">
+    <div class="flex justify-end gap-2">
+      <%= render_button("Cancel", variant: :default, data: { action: "click->ui--dialog#close" }) %>
+    </div>
+
+    <div class="flex justify-end gap-2">
+      <%= render_button("Delete File", variant: :error, type: :submit) %>
+    </div>
+  </div>
+<% end %>

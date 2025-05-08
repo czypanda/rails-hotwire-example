@@ -1,0 +1,31 @@
+<div>
+  <div class="relative w-full overflow-auto rounded-md">
+    <%= render_table do %>
+      <caption class="sr-only">Files and folders dasboard</caption>
+      <%= table_head do %>
+        <%= table_header "", class: "w-1/12" %>
+        <%= table_header "Name", class: "w-1" %>
+        <%= table_header "Date Modified", class: "w-1/12 text-center hidden sm:table-cell" %>
+        <%= table_header "Size", class: "w-1/12 text-center hidden sm:table-cell" %>
+        <%= table_header "Tags", class: "w-1/12 text-center hidden sm:table-cell" %>
+        <%= table_header "Actions", class: "w-1/12 text-center" %>
+      <% end %>
+
+      <%= table_body do %>
+        <% if current_folder.parent.present? %>
+          <%= render partial:'dashboard/folders/parent_row', locals: { dashboard_folder: current_folder.parent } %>
+        <% end %>
+
+        <%= render partial:'dashboard/folders/row', collection: dashboard_folders, as: :dashboard_folder, locals: { available_folders: available_folders } %>
+
+        <%= render partial:'dashboard/file_entries/row', collection: dashboard_files, as: :dashboard_file, locals: { available_folders: available_folders } %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% show_empty_data_placeholder = dashboard_folders.empty? && dashboard_files.empty? && is_root_folder?(current_folder) %>
+
+  <% if show_empty_data_placeholder %>
+    <%= render 'dashboard/empty_data_placeholder' %>
+  <% end %>
+</div>

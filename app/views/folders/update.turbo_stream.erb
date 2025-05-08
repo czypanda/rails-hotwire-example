@@ -1,0 +1,8 @@
+<%= turbo_stream.update "dashboard_content", partial: "dashboard/dashboard_content", locals: { available_folders: available_folders, dashboard_folders: dashboard_folders, dashboard_files: dashboard_files, current_folder: current_folder, current_view: current_view } %>
+
+<%= turbo_stream.replace "edit_folder_form_#{folder.id}_1", partial: 'folders/edit_form', locals: { folder: folder, available_folders: available_folders, source_id: 1 } %>
+<%= turbo_stream.replace "edit_folder_form_#{folder.id}_2", partial: 'folders/edit_form', locals: { folder: folder, available_folders: available_folders, source_id: 2 } %>
+
+<turbo-stream action="close-modal" target="edit_folder_modal"></turbo-stream>
+
+<%= render_turbo_stream_flash_messages %>

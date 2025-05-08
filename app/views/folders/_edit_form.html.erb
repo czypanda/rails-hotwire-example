@@ -1,0 +1,27 @@
+<turbo-frame id="edit_folder_form_<%= folder.id %>_<%= source_id %>">
+  <%= form_with(model: folder, local: true, class: 'space-y-4 text-start', data: { turbo: true }) do |f| %>
+    <h2 class="text-lg font-semibold">Edit folder</h2>
+
+    <%= hidden_field_tag :source_id, source_id %>
+    <div>
+      <%= f.label :name, 'Folder Name', class: 'block font-semibold mb-1' %>
+
+      <%= render_input(name: "folder[name]", label: true, placeholder: 'Enter folder name...', object: folder, field_name: :name, value: folder.name) %>
+    </div>
+    <div class="hidden">
+      <%= f.label :parent_id, 'Parent Folder', class: 'block font-semibold mb-1' %>
+
+      <%= render_select name: "folder[parent_id]", selected: folder.parent.name, class: "w-full" do |select| %>
+        <% available_folders.each do |available_folder| %>
+          <%= select.option label: available_folder.name, value: available_folder.id do %>
+            <%= available_folder.name %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+    </div>
+    <div class="flex justify-end gap-2">
+      <%= render_button("Update Folder", variant: :default, type: :submit) %>
+    </div>
+  <% end %>
+</turbo-frame>

@@ -1,0 +1,41 @@
+<turbo-frame id="new_file_form">
+  <%= form_with(model: file_entry, local: true, class: 'space-y-4 text-start', data: { turbo: true }) do |f| %>
+    <h2 class="text-lg font-semibold">Upload file</h2>
+
+    <div>
+      <%= f.label :name, 'File name', class: 'block font-semibold mb-1' %>
+      <%= render_input(name: "file_entry[name]", label: true, placeholder: 'Enter file name...', object: file_entry, field_name: :name) %>
+    </div>
+
+    <div>
+      <%= f.label :file_data, 'File', class: 'block font-semibold mb-1' %>
+      <%= f.file_field :file_data, class: 'w-full' %>
+    </div>
+
+    <div>
+      <%= f.label :description, class: 'block font-semibold mb-1' %>
+      <%= render_input(name: "file_entry[description]", label: true, placeholder: 'Enter file description...', object: file_entry, field_name: :description) %>
+    </div>
+
+    <div>
+      <%= f.label :tags, class: 'block font-semibold mb-1' %>
+      <%= render_input(name: "file_entry[tags]", label: true, placeholder: 'Comma separated tags', object: file_entry, field_name: :tags) %>
+    </div>
+
+    <div>
+      <%= f.label :folder_id, 'Folder', class: 'block font-semibold mb-1' %>
+
+      <%= render_select name: "file_entry[folder_id]", selected: available_folders.first.name, class: "w-full" do |select| %>
+        <% available_folders.each do |available_folder| %>
+          <%= select.option label: available_folder.name, value: available_folder.id do %>
+            <%= available_folder.name %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="flex justify-end gap-2">
+      <%= render_button("Create File", variant: :default, type: :submit) %>
+    </div>
+  <% end %>
+</turbo-frame>
