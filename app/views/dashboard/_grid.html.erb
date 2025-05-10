@@ -1,17 +1,15 @@
 <turbo-frame id="dashboard_grid">
   <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 auto-rows-fr" data-dashboard-target="gridView">
-    <% if current_folder.parent.present? %>
-      <%= render partial:'dashboard/folders/parent_card', locals: { folder: current_folder.parent } %>
+    <% if current_folder_presenter.parent_present? %>
+      <%= render partial:'dashboard/folders/parent_card', locals: { folder_presenter: current_folder_presenter.parent_presenter } %>
     <% end %>
 
-    <%= render partial:'dashboard/folders/card', collection: folders, as: :folder %>
+    <%= render partial:'dashboard/folders/card', collection: folders_presenters, as: :folder_presenter %>
 
-    <%= render partial:'dashboard/file_entries/card', collection: files, as: :file %>
-
-    <% show_empty_data_placeholder = folders.empty? && files.empty? && is_root_folder?(current_folder) %>
+    <%= render partial:'dashboard/file_entries/card', collection: file_entries_presenters, as: :file_entry_presenter %>
   </div>
 
-  <% if show_empty_data_placeholder %>
+  <% if show_empty_data_placeholder?(folders: folders_presenters, file_entries: file_entries_presenters, current_folder: current_folder_presenter) %>
     <%= render 'dashboard/empty_data_placeholder' %>
   <% end %>
 </turbo-frame>

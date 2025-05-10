@@ -1,5 +1,5 @@
 <%= render_dialog id: "delete_folder_dialog", default_open: true do %>
     <%= dialog_content do %>
-       <%= render 'folders/delete_form', folder: folder %>
+       <%= render 'folders/delete_form', folder_presenter: folder_presenter %>
     <% end %>
 <% end %>

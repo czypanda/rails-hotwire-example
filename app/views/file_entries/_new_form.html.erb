@@ -1,10 +1,10 @@
 <turbo-frame id="new_file_form">
-  <%= form_with(model: file_entry, local: true, class: 'space-y-4 text-start', data: { turbo: true }) do |f| %>
+  <%= form_with(model: file_entry_presenter, local: true, class: 'space-y-4 text-start', data: { turbo: true }) do |f| %>
     <h2 class="text-lg font-semibold">Upload file</h2>
 
     <div>
       <%= f.label :name, 'File name', class: 'block font-semibold mb-1' %>
-      <%= render_input(name: "file_entry[name]", label: true, placeholder: 'Enter file name...', object: file_entry, field_name: :name) %>
+      <%= render_input(name: "file_entry[name]", label: true, placeholder: 'Enter file name...', object: file_entry_presenter, field_name: :name) %>
     </div>
 
     <div>
@@ -14,15 +14,15 @@
 
     <div>
       <%= f.label :description, class: 'block font-semibold mb-1' %>
-      <%= render_input(name: "file_entry[description]", label: true, placeholder: 'Enter file description...', object: file_entry, field_name: :description) %>
+      <%= render_input(name: "file_entry[description]", label: true, placeholder: 'Enter file description...', object: file_entry_presenter, field_name: :description) %>
     </div>
 
     <div>
       <%= f.label :tags, class: 'block font-semibold mb-1' %>
-      <%= render_input(name: "file_entry[tags]", label: true, placeholder: 'Comma separated tags', object: file_entry, field_name: :tags) %>
+      <%= render_input(name: "file_entry[tags]", label: true, placeholder: 'Comma separated tags', object: file_entry_presenter, field_name: :tags) %>
     </div>
 
-    <%= f.hidden_field :folder_id, value: file_entry.folder_id %>
+    <%= f.hidden_field :folder_id, value: file_entry_presenter.folder_id %>
 
     <div class="flex justify-end gap-2">
       <%= render_button("Create File", variant: :default, type: :submit) %>

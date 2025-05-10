@@ -1,7 +1,7 @@
 <%= table_row class: "cursor-move", data: { 
     controller: "drag-drop", 
     drag_drop_type_value: "file", 
-    drag_drop_id_value: file.id,
+    drag_drop_id_value: file_entry_presenter.id,
     drag_drop_draggable_value: true,
 } do %>
     <%= table_column do %>
@@ -9,26 +9,26 @@
     <% end %>
 
     <%= table_column class: "whitespace-nowrap overflow-auto max-w-1" do %>
-        <%= file.name %>
+        <%= file_entry_presenter.name %>
     <% end %>
 
     <%= table_column class: "text-center hidden sm:table-cell" do %>
-        <%= file.updated_at.strftime('%m/%d/%Y') %>
+        <%= file_entry_presenter.date_modified %>
     <% end %>
 
     <%= table_column class: "text-center hidden sm:table-cell" do %>
-        <%= number_to_human_size(file.size).presence || '-' %>
+        <%= file_entry_presenter.size %>
     <% end %>
 
     <%= table_column class: "text-center hidden sm:table-cell" do %>
-        <%= file.tags.join(', ').presence || '-' %>
+        <%= file_entry_presenter.tags %>
     <% end %>
 
     <%= table_column class: "text-center" do %>
         <div class="flex gap-2 flex-col md:flex-row">
-            <%= render 'dashboard/file_entries/edit_file_button', file_id: file.id %>
+            <%= render 'dashboard/file_entries/edit_file_button', file_entry_id: file_entry_presenter.id %>
 
-            <%= render 'dashboard/file_entries/delete_file_button', file_id: file.id %>
+            <%= render 'dashboard/file_entries/delete_file_button', file_entry_id: file_entry_presenter.id %>
         </div>
     <% end %>
 <% end %>

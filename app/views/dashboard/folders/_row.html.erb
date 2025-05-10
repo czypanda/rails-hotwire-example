@@ -1,37 +1,36 @@
-    <%= table_row data: { 
-        controller: "turbo-visit drag-drop", 
-        drag_drop_type_value: "folder", 
-        drag_drop_id_value: folder.id,
-        drag_drop_draggable_value: true,
-        action: "click->turbo-visit#visit",
-        url: dashboard_path_for(folder)
-    } do %>
-        <%= table_column do %>
-            <%= render 'icons/folder' %>
-        <% end %>
-
-        <%= table_column class: "whitespace-nowrap overflow-auto max-w-1" do %>
-            <%= folder.name %>
-        <% end %>
-
-        <%= table_column class: "text-center hidden sm:table-cell" do %>
-            <%= folder.updated_at.strftime('%m/%d/%Y') %>
-        <% end %>
-
-        <%= table_column class: "text-center hidden sm:table-cell" do %>
-            -
-        <% end %>
-
-        <%= table_column class: "text-center hidden sm:table-cell" do %>
-            -
-        <% end %>
-
-        <%= table_column class: "text-center" do %>
-            <div class="flex gap-2 flex-col md:flex-row">
-                <%= render 'dashboard/folders/edit_folder_button', folder_id: folder.id %>
-
-                <%= render 'dashboard/folders/delete_folder_button', folder_id: folder.id %>
-            </div>
-        <% end %>
+<%= table_row data: { 
+    controller: "turbo-visit drag-drop", 
+    drag_drop_type_value: "folder", 
+    drag_drop_id_value: folder_presenter.id,
+    drag_drop_draggable_value: true,
+    action: "click->turbo-visit#visit",
+    url: dashboard_path_for(folder_presenter)
+} do %>
+    <%= table_column do %>
+        <%= render 'icons/folder' %>
     <% end %>
 
+    <%= table_column class: "whitespace-nowrap overflow-auto max-w-1" do %>
+        <%= folder_presenter.name %>
+    <% end %>
+
+    <%= table_column class: "text-center hidden sm:table-cell" do %>
+        <%= folder_presenter.date_modified %>
+    <% end %>
+
+    <%= table_column class: "text-center hidden sm:table-cell" do %>
+        <%= folder_presenter.size %>
+    <% end %>
+
+    <%= table_column class: "text-center hidden sm:table-cell" do %>
+        <%= folder_presenter.tags %>
+    <% end %>
+
+    <%= table_column class: "text-center" do %>
+        <div class="flex gap-2 flex-col md:flex-row">
+            <%= render 'dashboard/folders/edit_folder_button', folder_id: folder_presenter.id %>
+
+            <%= render 'dashboard/folders/delete_folder_button', folder_id: folder_presenter.id %>
+        </div>
+    <% end %>
+<% end %>

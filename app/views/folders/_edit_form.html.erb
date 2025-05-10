@@ -1,14 +1,14 @@
 <turbo-frame id="edit_folder_form">
-  <%= form_with(model: folder, local: true, class: 'space-y-4 text-start', data: { turbo: true }) do |f| %>
+  <%= form_with(model: folder_presenter, local: true, class: 'space-y-4 text-start', data: { turbo: true }) do |f| %>
     <h2 class="text-lg font-semibold">Edit folder</h2>
 
     <div>
       <%= f.label :name, 'Folder Name', class: 'block font-semibold mb-1' %>
 
-      <%= render_input(name: "folder[name]", label: true, placeholder: 'Enter folder name...', object: folder, field_name: :name, value: folder.name) %>
+      <%= render_input(name: "folder[name]", label: true, placeholder: 'Enter folder name...', object: folder_presenter, field_name: :name, value: folder_presenter.name) %>
     </div>
 
-    <%= f.hidden_field :parent_id, value: folder.parent_id %>
+    <%= f.hidden_field :parent_id, value: folder_presenter.parent_id %>
 
     <div class="flex justify-end gap-2">
       <%= render_button("Update Folder", variant: :default, type: :submit) %>

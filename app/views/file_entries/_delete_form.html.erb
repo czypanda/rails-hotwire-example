@@ -1,4 +1,4 @@
-<%= form_with(model: file_entry, method: :delete, href: file_entry_path(file_entry), local: true, html: { multipart: true, class: 'space-y-4 text-start' }) do |f| %>
+<%= form_with(model: file_entry_presenter, method: :delete, href: file_entry_path(file_entry_presenter), local: true, html: { multipart: true, class: 'space-y-4 text-start' }) do |f| %>
   <h2 class="text-lg font-semibold">This action will permanently delete the file. Are you sure you want to continue?</h2>
 
   <div class="flex justify-end gap-2">

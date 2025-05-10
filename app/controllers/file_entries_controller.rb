@@ -3,6 +3,8 @@ class FileEntriesController < ApplicationController
     current_folder = Folder.find(params[:current_folder_id])
     file_entry     = FileEntry.new(folder: current_folder)
 
+    file_entry_presenter = FileEntryPresenter.new(file_entry: file_entry)
+
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
@@ -10,7 +12,7 @@ class FileEntriesController < ApplicationController
             "new_file_entry_dialog",
             partial: "file_entries/new_form_dialog",
             locals: {
-              file_entry: file_entry
+              file_entry_presenter: file_entry_presenter
             }
           )
         ]
@@ -21,6 +23,8 @@ class FileEntriesController < ApplicationController
   def edit
     file_entry = FileEntry.find(params[:id])
 
+    file_entry_presenter = FileEntryPresenter.new(file_entry: file_entry)
+
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
@@ -28,7 +32,7 @@ class FileEntriesController < ApplicationController
             "edit_file_entry_dialog",
             partial: "file_entries/edit_form_dialog",
             locals: {
-              file_entry: file_entry
+              file_entry_presenter: file_entry_presenter
             }
           )
         ]
@@ -42,9 +46,12 @@ class FileEntriesController < ApplicationController
 
     if create_successful
       current_folder = file_entry.folder
+      folders        = current_folder.subfolders
+      files          = current_folder.file_entries
 
-      folders = current_folder.subfolders
-      files   = current_folder.file_entries
+      current_folder_presenter = FolderPresenter.new(folder: current_folder)
+      file_entries_presenters  = files.map { |file| FileEntryPresenter.new(file_entry: file) }
+      folders_presenters       = folders.map { |folder| FolderPresenter.new(folder: folder) }
 
       respond_to do |format|
         format.turbo_stream do
@@ -54,10 +61,10 @@ class FileEntriesController < ApplicationController
             turbo_stream.update("dashboard_content",
               partial: "dashboard/dashboard_content",
               locals: {
-                folders:        folders,
-                files:          files,
-                current_folder: current_folder,
-                current_view:   current_view
+                folders_presenters:       folders_presenters,
+                file_entries_presenters:  file_entries_presenters,
+                current_folder_presenter: current_folder_presenter,
+                current_view:             current_view
               }
             ),
             turbo_stream.update("new_file_entry_dialog"),
@@ -66,6 +73,8 @@ class FileEntriesController < ApplicationController
         end
       end
     else
+      file_entry_presenter = FileEntryPresenter.new(file_entry: file_entry)
+
       respond_to do |format|
         format.turbo_stream do
           flash.now[:alert] = "Failed to create file"
@@ -74,7 +83,7 @@ class FileEntriesController < ApplicationController
             turbo_stream.replace("new_file_form",
               partial: "file_entries/new_form",
               locals: {
-                file_entry:        file_entry
+                file_entry_presenter: file_entry_presenter
               }
             ),
             render_turbo_stream_flash_messages
@@ -87,6 +96,8 @@ class FileEntriesController < ApplicationController
   def edit
     file_entry = FileEntry.find(params[:id])
 
+    file_entry_presenter = FileEntryPresenter.new(file_entry: file_entry)
+
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
@@ -94,7 +105,7 @@ class FileEntriesController < ApplicationController
             "edit_file_entry_dialog",
             partial: "file_entries/edit_form_dialog",
             locals: {
-              file_entry: file_entry
+              file_entry_presenter: file_entry_presenter
             }
           )
         ]
@@ -109,9 +120,12 @@ class FileEntriesController < ApplicationController
 
     if update_successful
       current_folder = file_entry.folder
+      folders        = current_folder.subfolders
+      files          = current_folder.file_entries
 
-      folders = current_folder.subfolders
-      files   = current_folder.file_entries
+      current_folder_presenter = FolderPresenter.new(folder: current_folder)
+      file_entries_presenters  = files.map { |file| FileEntryPresenter.new(file_entry: file) }
+      folders_presenters       = folders.map { |folder| FolderPresenter.new(folder: folder) }
 
       respond_to do |format|
         format.turbo_stream do
@@ -121,10 +135,10 @@ class FileEntriesController < ApplicationController
             turbo_stream.update("dashboard_content",
               partial: "dashboard/dashboard_content",
               locals: {
-                folders:        folders,
-                files:          files,
-                current_folder: current_folder,
-                current_view:   current_view
+                folders_presenters:       folders_presenters,
+                file_entries_presenters:  file_entries_presenters,
+                current_folder_presenter: current_folder_presenter,
+                current_view:             current_view
               }
             ),
             turbo_stream.update("edit_file_entry_dialog"),
@@ -133,6 +147,8 @@ class FileEntriesController < ApplicationController
         end
       end
     else
+      file_entry_presenter = FileEntryPresenter.new(file_entry: file_entry)
+
       respond_to do |format|
         format.turbo_stream do
           flash.now[:alert] = "Failed to update file"
@@ -141,7 +157,7 @@ class FileEntriesController < ApplicationController
             turbo_stream.update("edit_file_form",
               partial: "file_entries/edit_form",
               locals: {
-                file_entry: file_entry
+                file_entry_presenter: file_entry_presenter
               }
             ),
             render_turbo_stream_flash_messages
@@ -154,6 +170,8 @@ class FileEntriesController < ApplicationController
   def delete
     file_entry = FileEntry.find(params[:id])
 
+    file_entry_presenter = FileEntryPresenter.new(file_entry: file_entry)
+
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
@@ -161,7 +179,7 @@ class FileEntriesController < ApplicationController
             "delete_file_entry_dialog",
             partial: "file_entries/delete_form_dialog",
             locals: {
-              file_entry: file_entry
+              file_entry_presenter: file_entry_presenter
             }
           )
         ]
@@ -174,9 +192,12 @@ class FileEntriesController < ApplicationController
     file_entry.destroy!
 
     current_folder = file_entry.folder
+    folders        = current_folder.subfolders
+    files          = current_folder.file_entries
 
-    folders = current_folder.subfolders
-    files   = current_folder.file_entries
+    current_folder_presenter = FolderPresenter.new(folder: current_folder)
+    file_entries_presenters  = files.map { |file| FileEntryPresenter.new(file_entry: file) }
+    folders_presenters       = folders.map { |folder| FolderPresenter.new(folder: folder) }
 
     respond_to do |format|
       format.turbo_stream do
@@ -186,10 +207,10 @@ class FileEntriesController < ApplicationController
           turbo_stream.update("dashboard_content",
             partial: "dashboard/dashboard_content",
             locals: {
-              folders:        folders,
-              files:          files,
-              current_folder: current_folder,
-              current_view:   current_view
+              folders_presenters:       folders_presenters,
+              file_entries_presenters:  file_entries_presenters,
+              current_folder_presenter: current_folder_presenter,
+              current_view:             current_view
             }
           ),
           turbo_stream.update("delete_file_entry_dialog"),
@@ -209,6 +230,10 @@ class FileEntriesController < ApplicationController
     folders = current_folder.subfolders
     files   = current_folder.file_entries
 
+    current_folder_presenter = FolderPresenter.new(folder: current_folder)
+    file_entries_presenters  = files.map { |file| FileEntryPresenter.new(file_entry: file) }
+    folders_presenters       = folders.map { |folder| FolderPresenter.new(folder: folder) }
+
     respond_to do |format|
       format.turbo_stream do
         flash.now[:notice] = "File moved successfully"
@@ -217,10 +242,10 @@ class FileEntriesController < ApplicationController
           turbo_stream.update("dashboard_content",
             partial: "dashboard/dashboard_content",
             locals: {
-              folders:        folders,
-              files:          files,
-              current_folder: current_folder,
-              current_view:   current_view
+              folders_presenters:       folders_presenters,
+              file_entries_presenters:  file_entries_presenters,
+              current_folder_presenter: current_folder_presenter,
+              current_view:             current_view
             }
           ),
           render_turbo_stream_flash_messages

@@ -1,15 +1,15 @@
 <turbo-frame id="edit_file_form">
-  <%= form_with(model: file_entry, local: true, class: 'space-y-4 text-start', data: { turbo: true }) do |f| %>
+  <%= form_with(model: file_entry_presenter, local: true, class: 'space-y-4 text-start', data: { turbo: true }) do |f| %>
     <h2 class="text-lg font-semibold">Edit file</h2>
 
     <div>
       <%= f.label :name, 'File name', class: 'block font-semibold mb-1' %>
-      <%= render_input(name: "file_entry[name]", label: true, placeholder: 'Enter file name...', object: file_entry, field_name: :name, value: file_entry.name) %>
+      <%= render_input(name: "file_entry[name]", label: true, placeholder: 'Enter file name...', object: file_entry_presenter, field_name: :name, value: file_entry_presenter.name) %>
     </div>
 
     <div class="hidden">
       <%= f.label :file_data, 'File', class: 'block font-semibold mb-1' %>
-      <%= render_input(name: :file_data, label: true, type: "file", placeholder: 'Enter file description...', object: file_entry, field_name: :file_data) %>
+      <%= render_input(name: :file_data, label: true, type: "file", placeholder: 'Enter file description...', object: file_entry_presenter, field_name: :file_data) %>
     </div>
 
     <div>
@@ -22,7 +22,7 @@
       <%= render_input(name: :tags, label: true, placeholder: 'Comma separated tags') %>
     </div>
 
-    <%= hidden_field_tag :folder_id, file_entry.folder_id %>
+    <%= hidden_field_tag :folder_id, file_entry_presenter.folder_id %>
 
     <div class="flex justify-end gap-2">
       <%= render_button("Update File", variant: :default, type: :submit) %>

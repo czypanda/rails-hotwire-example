@@ -1,5 +1,5 @@
 <turbo-frame id="delete_folder_form">
-  <%= form_with(model: folder, method: :delete, local: true, class: 'space-y-4 text-start', data: { turbo: true }) do |f| %>
+  <%= form_with(model: folder_presenter, method: :delete, local: true, class: 'space-y-4 text-start', data: { turbo: true }) do |f| %>
     <h2 class="text-lg font-semibold">This action will permanently delete the folder and all its contents. Are you sure you want to continue?</h2>
 
     <div class="flex justify-end gap-2">

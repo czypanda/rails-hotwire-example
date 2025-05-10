@@ -1,10 +1,10 @@
 
 <main class="py-4">
     <%= tab_panel active: current_view == 'grid' do %>
-        <%= render 'dashboard/grid', files: files, folders: folders, current_folder: current_folder %>
+        <%= render 'dashboard/grid', file_entries_presenters: file_entries_presenters, folders_presenters: folders_presenters, current_folder_presenter: current_folder_presenter %>
     <% end %>
 
     <%= tab_panel active: current_view == 'list' do %>
-        <%= render 'dashboard/table', files: files, folders: folders, current_folder: current_folder %>
+        <%= render 'dashboard/table', file_entries_presenters: file_entries_presenters, folders_presenters: folders_presenters, current_folder_presenter: current_folder_presenter %>
     <% end %>
 </main>

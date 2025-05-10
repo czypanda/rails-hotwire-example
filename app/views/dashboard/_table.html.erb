@@ -12,20 +12,18 @@
       <% end %>
 
       <%= table_body do %>
-        <% if current_folder.parent.present? %>
-          <%= render partial:'dashboard/folders/parent_row', locals: { folder: current_folder.parent } %>
+        <% if current_folder_presenter.parent_present? %>
+          <%= render partial:'dashboard/folders/parent_row', locals: { folder_presenter: current_folder_presenter.parent_presenter } %>
         <% end %>
 
-        <%= render partial:'dashboard/folders/row', collection: folders, as: :folder %>
+        <%= render partial:'dashboard/folders/row', collection: folders_presenters, as: :folder_presenter %>
 
-        <%= render partial:'dashboard/file_entries/row', collection: files, as: :file %>
+        <%= render partial:'dashboard/file_entries/row', collection: file_entries_presenters, as: :file_entry_presenter %>
       <% end %>
     <% end %>
   </div>
 
-  <% show_empty_data_placeholder = folders.empty? && files.empty? && is_root_folder?(current_folder) %>
-
-  <% if show_empty_data_placeholder %>
+  <% if show_empty_data_placeholder?(folders: folders_presenters, file_entries: file_entries_presenters, current_folder: current_folder_presenter) %>
     <%= render 'dashboard/empty_data_placeholder' %>
   <% end %>
 </turbo-frame>

@@ -6,10 +6,10 @@
       <%= before_tab_list do %>
         <div class="flex flex-col md:flex-row gap-2 mr-2 w-full">
           <div class="flex items-center flex-1">
-            <%= render "dashboard/path", current_folder: current_folder %>
+            <%= render "dashboard/path", current_folder_presenter: current_folder_presenter %>
           </div>
 
-          <%= render "dashboard/controls", current_folder_id: current_folder.id %>
+          <%= render "dashboard/controls", current_folder_id: current_folder_presenter.id %>
 
         </div>
       <% end %>
@@ -21,7 +21,7 @@
 
       <%= tab_panels do %>
         <%= turbo_frame_tag "dashboard_content" do %>
-          <%= render 'dashboard/dashboard_content', files: files, folders: folders, current_folder: current_folder, current_view: current_view %>
+          <%= render 'dashboard/dashboard_content', file_entries_presenters: file_entries_presenters, folders_presenters: folders_presenters, current_folder_presenter: current_folder_presenter, current_view: current_view %>
         <% end %>
       <% end %>
     <% end %>

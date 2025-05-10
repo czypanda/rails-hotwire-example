@@ -1,17 +1,17 @@
-<div data-controller="drag-drop" data-drag-drop-type-value="file" data-drag-drop-id-value="<%= file.id %>" data-drag-drop-draggable-value="true">
+<div data-controller="drag-drop" data-drag-drop-type-value="file" data-drag-drop-id-value="<%= file_entry_presenter.id %>" data-drag-drop-draggable-value="true">
     <%= render_card class: "cursor-move min-h-48 h-full" do %>
         <div class="text-4xl mb-2"><%= render 'icons/file', class: "h-10 w-10" %></div>
 
         <div class="flex flex-col justify-between h-full text-center">
-            <div class="font-semibold text-md"><%= file.name %></div>
+            <div class="font-semibold text-md"><%= file_entry_presenter.name %></div>
 
             <div class="flex flex-col items-center">
-                <div class="text-md text-gray-500 mt-1"><%= file.updated_at.strftime('%m/%d/%Y') %></div>
+                <div class="text-md text-gray-500 mt-1"><%= file_entry_presenter.date_modified %></div>
 
                 <div class="flex gap-2 mt-2">
-                    <%= render 'dashboard/file_entries/edit_file_button', file_id: file.id %>
+                    <%= render 'dashboard/file_entries/edit_file_button', file_entry_id: file_entry_presenter.id %>
 
-                    <%= render 'dashboard/file_entries/delete_file_button', file_id: file.id %>
+                    <%= render 'dashboard/file_entries/delete_file_button', file_entry_id: file_entry_presenter.id %>
                 </div>
             </div>
         </div>
