@@ -1,7 +1,7 @@
 <%= table_row class: "cursor-move", data: { 
     controller: "drag-drop", 
     drag_drop_type_value: "file", 
-    drag_drop_id_value: dashboard_file.id,
+    drag_drop_id_value: file.id,
     drag_drop_draggable_value: true,
 } do %>
     <%= table_column do %>
@@ -9,46 +9,26 @@
     <% end %>
 
     <%= table_column class: "whitespace-nowrap overflow-auto max-w-1" do %>
-        <%= dashboard_file.name %>
+        <%= file.name %>
     <% end %>
 
     <%= table_column class: "text-center hidden sm:table-cell" do %>
-        <%= dashboard_file.updated_at.strftime('%m/%d/%Y') %>
+        <%= file.updated_at.strftime('%m/%d/%Y') %>
     <% end %>
 
     <%= table_column class: "text-center hidden sm:table-cell" do %>
-        <%= number_to_human_size(dashboard_file.size).presence || '-' %>
+        <%= number_to_human_size(file.size).presence || '-' %>
     <% end %>
 
     <%= table_column class: "text-center hidden sm:table-cell" do %>
-        <%= dashboard_file.tags.join(', ').presence || '-' %>
+        <%= file.tags.join(', ').presence || '-' %>
     <% end %>
 
     <%= table_column class: "text-center" do %>
         <div class="flex gap-2 flex-col md:flex-row">
-            <%= render_dialog id: "edit_file_modal" do %>
-                <%= dialog_trigger do %>
-                    <%= render_button 'Edit' do %>
-                        <%= render 'icons/square_pen' %>
-                    <% end %>
-                <% end %>
+            <%= render 'dashboard/file_entries/edit_file_button', file_id: file.id %>
 
-                <%= dialog_content do %>
-                    <%= render 'file_entries/edit_form', file_entry: dashboard_file, available_folders: available_folders, source_id: 1 %>
-                <% end %>
-            <% end %>
-            
-            <%= render_dialog class: "delete_file_modal" do %>
-                <%= dialog_trigger do %>
-                    <%= render_button 'Delete', variant: :destructive do %>
-                        <%= render 'icons/trash_2' %>
-                    <% end %>
-                <% end %>
-
-                <%= dialog_content do %>
-                    <%= render 'file_entries/delete_form', file_entry: dashboard_file %>
-                <% end %>
-            <% end %>
+            <%= render 'dashboard/file_entries/delete_file_button', file_id: file.id %>
         </div>
     <% end %>
 <% end %>

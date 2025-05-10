@@ -1,0 +1,3 @@
+<%= render_button 'Delete', variant: :destructive, href: delete_folder_path(id: folder_id), method: :get, data: { turbo: true, turbo_stream: "delete_folder_dialog" } do %>
+    <%= render 'icons/trash_2' %>
+<% end %>

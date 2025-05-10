@@ -22,17 +22,7 @@
       <%= render_input(name: "file_entry[tags]", label: true, placeholder: 'Comma separated tags', object: file_entry, field_name: :tags) %>
     </div>
 
-    <div>
-      <%= f.label :folder_id, 'Folder', class: 'block font-semibold mb-1' %>
-
-      <%= render_select name: "file_entry[folder_id]", selected: available_folders.first.name, class: "w-full" do |select| %>
-        <% available_folders.each do |available_folder| %>
-          <%= select.option label: available_folder.name, value: available_folder.id do %>
-            <%= available_folder.name %>
-          <% end %>
-        <% end %>
-      <% end %>
-    </div>
+    <%= f.hidden_field :folder_id, value: file_entry.folder_id %>
 
     <div class="flex justify-end gap-2">
       <%= render_button("Create File", variant: :default, type: :submit) %>

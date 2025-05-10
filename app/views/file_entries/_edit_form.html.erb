@@ -1,8 +1,6 @@
-<turbo-frame id="edit_file_form_<%= file_entry.id %>_<%= source_id %>">
+<turbo-frame id="edit_file_form">
   <%= form_with(model: file_entry, local: true, class: 'space-y-4 text-start', data: { turbo: true }) do |f| %>
     <h2 class="text-lg font-semibold">Edit file</h2>
-
-    <%= hidden_field_tag :source_id, source_id %>
 
     <div>
       <%= f.label :name, 'File name', class: 'block font-semibold mb-1' %>
@@ -24,17 +22,7 @@
       <%= render_input(name: :tags, label: true, placeholder: 'Comma separated tags') %>
     </div>
 
-    <div class="hidden">
-      <%= f.label :folder_id, 'Folder', class: 'block font-semibold mb-1' %>
-
-      <%= render_select name: :folder_id, selected: file_entry.folder.name, class: "w-full" do |select| %>
-        <% available_folders.each do |available_folder| %>
-          <%= select.option label: available_folder.name, value: available_folder.id do %>
-            <%= available_folder.name %>
-          <% end %>
-        <% end %>
-      <% end %>
-    </div>
+    <%= hidden_field_tag :folder_id, file_entry.folder_id %>
 
     <div class="flex justify-end gap-2">
       <%= render_button("Update File", variant: :default, type: :submit) %>

@@ -1,4 +1,4 @@
-<div data-controller="ui--dialog" class="pointer-events-auto cursor-auto">
+<div data-controller="ui--dialog" class="pointer-events-auto cursor-auto" data-ui--dialog-default-open-value="<%= options[:default_open] || false %>">
   <div data-action="click->ui--dialog#open"><%= content_for(:dialog_trigger) %></div>
 
   <%= render "components/ui/shared/backdrop", as: "modal" %>

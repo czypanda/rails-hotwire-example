@@ -1,0 +1,5 @@
+<%= render_dialog id: "new_folder_dialog", default_open: true do %>
+    <%= dialog_content do %>
+       <%= render 'file_entries/new_form', file_entry: file_entry %>
+    <% end %>
+<% end %>

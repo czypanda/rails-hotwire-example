@@ -21,12 +21,14 @@ Rails.application.routes.draw do
   resources :folders, only: [:new, :create, :edit, :update, :destroy] do
     member do
       post :move
+      get :delete
     end
   end
 
   resources :file_entries, only: [:new, :create, :edit, :update, :destroy] do
     member do
       post :move
+      get :delete
     end
   end
 

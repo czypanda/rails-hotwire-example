@@ -1,43 +1,23 @@
 <%= render_card class: "cursor-pointer min-h-48", data: { 
     controller: "turbo-visit drag-drop", 
     drag_drop_type_value: "folder", 
-    drag_drop_id_value: dashboard_folder.id,
+    drag_drop_id_value: folder.id,
     drag_drop_draggable_value: true,
     action: "click->turbo-visit#visit",
-    url: dashboard_path_for(dashboard_folder)
+    url: dashboard_path_for(folder)
 } do %>
     <div class="mb-2"><%= render 'icons/folder', class: "h-10 w-10" %></div>
 
     <div class="flex flex-col justify-between h-full text-center">
-        <div class="font-semibold text-md"><%= dashboard_folder.name %></div>
+        <div class="font-semibold text-md"><%= folder.name %></div>
 
         <div class="flex flex-col items-center">
-            <div class="text-md text-gray-500 mt-1"><%= dashboard_folder.updated_at.strftime('%m/%d/%Y') %></div>
+            <div class="text-md text-gray-500 mt-1"><%= folder.updated_at.strftime('%m/%d/%Y') %></div>
 
             <div class="flex gap-2 mt-2">
-                <%= render_dialog id: "edit_folder_modal" do %>
-                    <%= dialog_trigger do %>
-                        <%= render_button 'Edit' do %>
-                        <%= render 'icons/square_pen' %>
-                        <% end %>
-                    <% end %>
+                <%= render 'dashboard/folders/edit_folder_button', folder_id: folder.id %>
 
-                    <%= dialog_content do %>
-                        <%= render 'folders/edit_form', folder: dashboard_folder, available_folders: available_folders, source_id: 1 %>
-                    <% end %>
-                <% end %>
-
-                <%= render_dialog id: "delete_folder_modal" do %>
-                    <%= dialog_trigger do %>
-                        <%= render_button 'Delete', variant: :destructive do %>
-                            <%= render 'icons/trash_2' %>
-                        <% end %>
-                    <% end %>
-
-                    <%= dialog_content do %>
-                        <%= render 'folders/delete_form', folder: dashboard_folder %>
-                    <% end %>
-                <% end %>
+                <%= render 'dashboard/folders/delete_folder_button', folder_id: folder.id %>
             </div>
         </div>
     </div>

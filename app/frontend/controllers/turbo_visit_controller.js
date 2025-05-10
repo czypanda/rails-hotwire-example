@@ -10,9 +10,7 @@ export default class TurboVisitController extends Controller {
     this.element.classList.add('cursor-pointer');
   }
 
-  visit(event) {
-    event.preventDefault();
-
+  visit() {
     const url = this.urlValue || this.element.dataset.url;
     if (!url) return;
 

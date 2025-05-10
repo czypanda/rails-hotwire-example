@@ -1,0 +1,3 @@
+<%= render_button 'Edit', href: edit_file_entry_path(id: file_id), method: :get, data: { turbo: true, turbo_stream: "edit_file_entry_dialog" } do %>
+    <%= render 'icons/square_pen' %>
+<% end %>

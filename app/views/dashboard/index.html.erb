@@ -9,27 +9,8 @@
             <%= render "dashboard/path", current_folder: current_folder %>
           </div>
 
-          <div class="flex row gap-4">
-            <%= render_dialog id: "new_file_modal" do %>
-            <%= dialog_trigger do %>
-              <%= render_button 'Upload', variant: :default %>
-            <% end %>
+          <%= render "dashboard/controls", current_folder_id: current_folder.id %>
 
-            <%= dialog_content do %>
-              <%= render 'file_entries/new_form', file_entry: FileEntry.new(folder: current_folder), available_folders: available_folders %>
-            <% end %>
-          <% end %>
-
-          <%= render_dialog id: "new_folder_modal" do %>
-            <%= dialog_trigger do %>
-              <%= render_button 'New Folder', variant: :secondary %>
-            <% end %>
-
-            <%= dialog_content do %>
-              <%= render 'folders/new_form', folder: Folder.new(parent: current_folder), available_folders: available_folders %>
-            <% end %>
-          <% end %>
-          </div>
         </div>
       <% end %>
 
@@ -40,10 +21,18 @@
 
       <%= tab_panels do %>
         <%= turbo_frame_tag "dashboard_content" do %>
-          <%= render 'dashboard/dashboard_content', available_folders: available_folders, dashboard_folders: dashboard_folders, dashboard_files: dashboard_files, current_folder: current_folder, current_view: current_view %>
+          <%= render 'dashboard/dashboard_content', files: files, folders: folders, current_folder: current_folder, current_view: current_view %>
         <% end %>
       <% end %>
     <% end %>
+
+    <turbo-frame id="new_folder_dialog"></turbo-frame>
+    <turbo-frame id="edit_folder_dialog"></turbo-frame>
+    <turbo-frame id="delete_folder_dialog"></turbo-frame>
+
+    <turbo-frame id="new_file_entry_dialog"></turbo-frame>
+    <turbo-frame id="edit_file_entry_dialog"></turbo-frame>
+    <turbo-frame id="delete_file_entry_dialog"></turbo-frame>
 
     <%= render 'components/ui/toast' %>
   </div>

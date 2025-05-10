@@ -1,0 +1,6 @@
+<turbo-frame id="dashboard_controls">
+    <div class="flex row gap-4">
+        <%= render_button 'Upload', variant: :default, href: new_file_entry_path, method: :get, params: { current_folder_id: current_folder_id }, data: { turbo: true, turbo_stream: "new_file_entry_dialog" } %>
+        <%= render_button 'New Folder', variant: :secondary, href: new_folder_path, method: :get, params: { current_folder_id: current_folder_id }, data: { turbo: true, turbo_stream: "new_folder_dialog" } %>
+    </div>
+</turbo-frame>

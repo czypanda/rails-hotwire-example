@@ -1,35 +1,21 @@
 import { Controller } from '@hotwired/stimulus';
-import { Turbo } from '@hotwired/turbo-rails';
-
-Turbo.StreamActions['close-modal'] = function () {
-  window.dispatchEvent(new Event('close-modal'));
-};
 
 export default class UIDialog extends Controller {
   static targets = ['dialog', 'modal', 'focus', 'drag', 'backdrop', 'closeButton'];
-
-  initialize() {
-    this.originalParentAction = null;
-  }
-
-  handleCloseModal = () => {
-    this.closeButtonTarget.click();
+  static values = {
+    defaultOpen: { type: Boolean }
   };
 
-  open(e) {
-    // dirty hack to prevent the row from being clicked
-    if (this.element.closest('tr')) {
-      this.originalParentAction = this.element.closest('tr').dataset.action;
-      this.element.closest('tr').dataset.action = 'null';
+  initialize() {
+    if (this.defaultOpenValue) {
+      this.toggleClass(true);
+      this.dispatch('opened');
     }
+  }
 
-    // Store original position and move to body
-
+  open(e) {
     this.openBy(e.target);
     e.preventDefault();
-
-    window.addEventListener('keydown', (e) => this.closeByKey(e), { once: true });
-    window.addEventListener('close-modal', this.handleCloseModal, { once: true });
   }
 
   close(e) {
@@ -37,15 +23,6 @@ export default class UIDialog extends Controller {
 
     e.preventDefault();
     e.stopImmediatePropagation();
-
-    // Move back to original position
-
-    window.removeEventListener('close-modal', this.handleCloseModal);
-
-    // dirty hack to prevent the row from being clicked
-    if (this.element.closest('tr')) {
-      this.element.closest('tr').dataset.action = this.originalParentAction;
-    }
   }
 
   toggle(e) {

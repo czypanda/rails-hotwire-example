@@ -1,25 +1,41 @@
 class DashboardController < ApplicationController
   def index
     current_folder    = find_folder_from_path
-    dashboard_folders = current_folder.subfolders
-    dashboard_files   = current_folder.file_entries
-    available_folders = Folder.all
+    folders           = current_folder.subfolders
+    files             = current_folder.file_entries
 
     respond_to do |format|
-      format.html { render locals: { 
+      format.html { render locals: {
         current_folder:    current_folder,
-        dashboard_folders: dashboard_folders,
-        dashboard_files:   dashboard_files,
-        available_folders: available_folders,
+        files:             files,
+        folders:           folders,
         current_view:      current_view
       }}
-      format.turbo_stream { render locals: {
-        current_folder:    current_folder,
-        dashboard_folders: dashboard_folders,
-        dashboard_files:   dashboard_files,
-        available_folders: available_folders,
-        current_view:      current_view
-      }}
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.update("dashboard_content",
+            partial: "dashboard/dashboard_content",
+            locals: {
+              current_folder:    current_folder,
+              files:             files,
+              folders:           folders,
+              current_view:      current_view
+            }
+          ),
+          turbo_stream.update("current_path",
+            partial: "dashboard/path",
+            locals: {
+              current_folder: current_folder
+            }
+          ),
+          turbo_stream.update("dashboard_controls",
+            partial: "dashboard/controls",
+            locals: {
+              current_folder_id: current_folder.id
+            }
+          )
+        ]
+      end
     end
   end
 
