@@ -16,3 +16,9 @@ then run
 ```shell
 bin/setup
 ```
+
+## Demo
+
+https://github.com/user-attachments/assets/661bf86a-2579-4159-b49e-f10ab22e67bb
+
+

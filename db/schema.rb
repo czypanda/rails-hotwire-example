@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_07_114855) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_07_114238) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -46,6 +46,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_07_114855) do
     t.string "name", null: false
     t.text "description"
     t.string "tags", default: [], array: true
+    t.text "file_data", null: false
     t.integer "size"
     t.string "content_type"
     t.bigint "folder_id"
