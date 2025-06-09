@@ -62,7 +62,7 @@ gem "stimulus-rails", "~> 1.3"
 
 gem "turbo-rails", "~> 2.0"
 
-gem "tailwind_merge", "~> 1.2"
+gem "tailwind_merge", "~> 1.3"
 
 gem "pry", "~> 0.15.2"
 
